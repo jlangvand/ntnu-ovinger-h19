@@ -55,11 +55,16 @@ class S2hms {
   }
 }
 
-class IsPrime {
+class IsPrime { // Printed statement is wrong. Test works.
 		public static void main(String[] args) {
-			int test = Integer.parseInt(args[0]);
-			boolean isPrime = true;
-			for (int i = 2; i<test; i++) if (test % i == 0) isPrime = false;
-			System.out.println(isPrime?"true":"false");
+			int test = Integer.parseInt(args[0]), i;
+			boolean isPrime = test%2==0||test==1?(test==2?true:false):true;
+			for (i = 3; i<test; i+=2) {
+				if (test % i == 0) {
+					isPrime = false;
+					break;
+				}
+			}
+			System.out.println(String.format("%d is "+(isPrime?"":"is divisable by %d and is not ")+"a prime!",test, i));
 		}
 }
