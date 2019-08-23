@@ -54,3 +54,12 @@ class S2hms {
     }
   }
 }
+
+class IsPrime {
+		public static void main(String[] args) {
+			int test = Integer.parseInt(args[0]);
+			boolean isPrime = true;
+			for (int i = 2; i<test; i++) if (test % i == 0) isPrime = false;
+			System.out.println(isPrime?"true":"false");
+		}
+}
