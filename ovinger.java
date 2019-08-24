@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 class Hm2S {
 	public static void main(String args[]) {
 		double h = Double.parseDouble(args[0]);
@@ -59,7 +61,7 @@ class IsPrime { // Printed statement is wrong. Test works.
 		public static void main(String[] args) {
 			int test = Integer.parseInt(args[0]), i;
 			boolean isPrime = test%2==0||test==1?(test==2?true:false):true;
-			for (i = 3; i<test; i+=2) {
+			for (i = 3; i<Math.sqrt(test); i+=2) {
 				if (test % i == 0) {
 					isPrime = false;
 					break;
@@ -67,4 +69,57 @@ class IsPrime { // Printed statement is wrong. Test works.
 			}
 			System.out.println(String.format("%d is "+(isPrime?"":"is divisable by %d and is not ")+"a prime!",test, i));
 		}
+}
+
+class PrintPrimes {
+	public static void main(String[] args) {
+		long lower = Integer.parseInt(args[0]);
+		long upper = Integer.parseInt(args[1]);
+		//System.out.print("2, ");
+		for (long i = lower; i<=upper; i++) {
+			boolean prime = true;
+			if (i%2==0) prime = false;
+			else for (long j = 3; j < Math.sqrt(i); j+=2) {
+				if (i%j==0) prime = false;
+			}
+			if (prime) {
+				System.out.print(String.format("%d, ",i));
+			}
+		}
+		System.out.println();
+	}
+}
+
+class PrintMersennes {
+	public static void main(String[] args) {
+		long lower = Long.parseLong(args[0]);
+		long upper = Long.parseLong(args[1]);
+		//System.out.print("2, ");
+		for (long i = lower; i<=upper; i++) {
+			boolean prime = true;
+			if (i%2==0) prime = false;
+			else for (long j = 3; j < Math.sqrt(i); j+=2) {
+				if (i%j==0) prime = false;
+			}
+			if (prime) {
+				boolean mersenne = true;
+				long m = (2^i)-1;
+				if (m%2==0) mersenne = false;
+				else for (long k = 3; k < Math.sqrt(m); k+=2) {
+					if (m%k==0) mersenne = false;
+				}
+				if (mersenne) {
+					System.out.println(String.format("2^%d is prime!",i));
+				}
+			}
+		}
+		System.out.println();
+	}
+}
+
+class LeapYear {
+	public static void main(String[] args) {
+		int test = Integer.parseInt(args[0]);
+		System.out.println((((test%100==0)&&(test%400==0))||((test%100!=0)&&(test%4==0)))?"Leap year":"Not a leap year");
+	}
 }
