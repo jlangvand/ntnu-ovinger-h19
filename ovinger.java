@@ -37,20 +37,8 @@ class S2hms {
   public static void main(String args[]) {
     for (int i=0; i<args.length; i++) {
       double s = Double.parseDouble(args[i]);
-      int m = 0;
-      int h = m;
       System.out.print(String.format("%.2fs = ", s));
-      while (s > 3600) {
-        h++;
-        s-=3600;
-      }
-      while (s > 60) {
-        m++;
-        s-=60;
-      }
-      if (h>0) System.out.print(Integer.toString(h)+"h, ");
-      if (m>0) System.out.print(Integer.toString(m)+"m, ");
-      System.out.println(String.format("%.2fs", s));
+			System.out.println(h>0?String.format("%ih ",s/3600):""+m>0?String.format("%im ",(s%300)/60):""+String.format("%is",(s%3600)%60));
     }
   }
 }
