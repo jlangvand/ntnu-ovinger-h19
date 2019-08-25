@@ -72,7 +72,7 @@ class PrintPrimes {
 				if (i%j==0) prime = false;
 			}
 			if (prime) {
-				System.out.print(String.format("%d, ",i));
+				System.out.print(String.format("%d ",i));
 			}
 		}
 		System.out.println();
