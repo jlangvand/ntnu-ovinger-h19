@@ -45,15 +45,18 @@ class S2hms {
 
 class IsPrime { // Printed statement is wrong. Test works.
 		public static void main(String[] args) {
-			int test = Integer.parseInt(args[0]), i;
-			boolean isPrime = test%2==0||test==1?(test==2?true:false):true;
-			for (i = 3; i<Math.sqrt(test); i+=2) {
-				if (test % i == 0) {
-					isPrime = false;
-					break;
+			for (int arg = 0; arg < args.length; arg++) {
+				int test = Integer.parseInt(args[arg]);
+				int i = 2;
+				boolean isPrime = test%2==0||test==1?(test==2?true:false):true;
+				if (isPrime) for (i=3; i<(i<100?test:Math.sqrt(test)); i+=2) {
+					if (test % i == 0) {
+						isPrime = false;
+						break;
+					}
 				}
+				System.out.println(String.format("%d is "+(test==0||test==1?"not ":isPrime?"":"divisable by %d and is not ")+"a prime!",test, i));
 			}
-			System.out.println(String.format("%d is "+(isPrime?"":"is divisable by %d and is not ")+"a prime!",test, i));
 		}
 }
 
