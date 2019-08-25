@@ -77,7 +77,10 @@ class PrimeThread extends Thread {
 				prime = true;
 				if (i%2==0) prime = false;
 				else for (long j = 3; j < Math.sqrt(i); j+=2) {
-					if (i%j==0) prime = false;
+					if (i%j==0) {
+						prime = false;
+						break;
+					}
 				}
 				if (prime) {
 					System.out.print(String.format("%d ",i));
