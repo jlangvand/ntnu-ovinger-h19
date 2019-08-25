@@ -36,9 +36,9 @@ class KGprice {
 class S2hms {
   public static void main(String args[]) {
     for (int i=0; i<args.length; i++) {
-      double s = Double.parseDouble(args[i]);
-      System.out.print(String.format("%.2fs = ", s));
-			System.out.println(String.format("%ih ",s/3600)+String.format("%im ",(s%300)/60)+String.format("%is",(s%3600)%60));
+      int s = Integer.parseInt(args[i]);
+      System.out.print(String.format("%ds = ", s));
+			System.out.println(String.format("%dh %dm %ds",s/3600,(s%3600)/60,(s%3600)%60));
     }
   }
 }
