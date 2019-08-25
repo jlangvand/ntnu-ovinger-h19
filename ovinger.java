@@ -60,6 +60,50 @@ class IsPrime { // Printed statement is wrong. Test works.
 		}
 }
 
+class PrimeThread extends Thread {
+	private long lower;
+	private long upper;
+
+	PrimeThread(long l, long u) {
+		lower = l;
+		upper = u;
+	}
+
+	public void run() {
+		try {
+			boolean prime;
+			lower=(lower%2==0?lower+1:lower);
+			for (long i = lower; i<=upper; i+=2) {
+				prime = true;
+				if (i%2==0) prime = false;
+				else for (long j = 3; j < Math.sqrt(i); j+=2) {
+					if (i%j==0) prime = false;
+				}
+				if (prime) {
+					System.out.print(String.format("%d ",i));
+				}
+			}
+		}
+		catch (Exception e) {
+			System.out.println("Exception error!");
+		}
+	}
+}
+
+class MultiPrime {
+	public static void main(String[] args) {
+		int threads = 3;
+		long lower = Long.parseLong(args[0]);
+		long upper = Long.parseLong(args[1]);
+		long interval = (upper-lower)/threads;
+		for (int i = 0; i < threads; i++) {
+			long start = lower + i * interval;
+			PrimeThread primeThread = new PrimeThread(start, start+interval);
+			primeThread.start();
+		}
+	}
+}
+
 class PrintPrimes {
 	public static void main(String[] args) {
 		long lower = Integer.parseInt(args[0]);
