@@ -1,15 +1,15 @@
 import java.lang.Math;
 
+/* Konverterer timer, minutter og sekunder til sekunder.								*|
+|* Tar timer, minutter og sekunder som argument. Eks:										*|
+|* java Hm2S 10 33 25																										*/
+
 class Hm2S {
 	public static void main(String args[]) {
-		double h = Double.parseDouble(args[0]);
-		double m = Double.parseDouble(args[1]);
-		double s = Double.parseDouble(args[2]);
-		s+=m*60;
-		s+=h*3600;
-		System.out.print(args[0]+"h, "+args[1]+"m, "+args[2]+"s -> ");
-		System.out.print(s);
-		System.out.println("s");
+		int s = args.length > 0 ? Integer.parseInt(args[0])*3600 : 0;
+		s += args.length > 1 ? Integer.parseInt(args[1])*60 : 0;
+		s += args.length > 2 ? Integer.parseInt(args[2]) : 0;
+		System.out.println(String.format("%ss",s));
 	}
 }
 
