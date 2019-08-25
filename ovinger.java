@@ -64,9 +64,10 @@ class PrintPrimes {
 	public static void main(String[] args) {
 		long lower = Integer.parseInt(args[0]);
 		long upper = Integer.parseInt(args[1]);
-		//System.out.print("2, ");
-		for (long i = lower; i<=upper; i++) {
-			boolean prime = true;
+		boolean prime;
+		lower=(lower%2==0?lower+1:lower);
+		for (long i = lower; i<=upper; i+=2) {
+			prime = true;
 			if (i%2==0) prime = false;
 			else for (long j = 3; j < Math.sqrt(i); j+=2) {
 				if (i%j==0) prime = false;
