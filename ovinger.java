@@ -1,4 +1,5 @@
 import java.lang.Math;
+import java.math.*;
 
 /* Konverterer timer, minutter og sekunder til sekunder.								*|
 |* Tar timer, minutter og sekunder som argument. Eks:										*|
@@ -63,10 +64,14 @@ class IsPrime { // Printed statement is wrong. Test works.
 class PrimeThread extends Thread {
 	private long lower;
 	private long upper;
+	private int k;
+	private long a;
+	private int tests;
 
 	PrimeThread(long l, long u) {
 		lower = l;
 		upper = u;
+		tests = 5;
 	}
 
 	public void run() {
@@ -74,6 +79,16 @@ class PrimeThread extends Thread {
 			boolean prime;
 			lower=(lower%2==0?lower+1:lower);
 			for (long i = lower; i<=upper; i+=2) {
+				// k = tests;
+				// while (k > 0) {
+				// 	a = (long)2.0+(long)(Math.random() % (i-4));
+				// 	if (power(a,i-1,i) != 1) {
+				// 		prime = false;
+				// 		break;
+				// 	}
+				// 	k--;
+				// }
+
 				prime = true;
 				if (i%2==0) prime = false;
 				else for (long j = 3; j < Math.sqrt(i); j+=2) {
