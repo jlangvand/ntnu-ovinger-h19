@@ -110,7 +110,7 @@ class PrimeThread extends Thread {
 
 class MultiPrime {
 	public static void main(String[] args) {
-		int threads = 3;
+		int threads = 16;
 		long lower = Long.parseLong(args[0]);
 		long upper = Long.parseLong(args[1]);
 		long interval = (upper-lower)/threads;
