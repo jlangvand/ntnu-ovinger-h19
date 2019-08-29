@@ -175,3 +175,30 @@ class LeapYear {
 		System.out.println((((test%100==0)&&(test%400==0))||((test%100!=0)&&(test%4==0)))?"Leap year":"Not a leap year");
 	}
 }
+
+// Gangetabell
+class Table {
+	public static void main(String[] args) {
+		int start = 0;
+		int stop = 0;
+		try {
+			start = Integer.parseInt(args[0]);
+			stop = Integer.parseInt(args[1]);
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Programmet tar to heltall som argumenter, 'fra' og 'til'");
+			return;
+		} catch(NumberFormatException e) {
+			System.out.println("Kun heltall som argumenter");
+			return;
+		}
+		int l = (int) (Math.log10(stop)+1);
+		System.out.println();
+		for (int i = start; i <= stop; i++) {
+			System.out.println(String.format("%d-GANGETABELL:", i));
+			for (int j = 1; j <= 10; j++) {
+				System.out.println(String.format("%"+l+"d * %2d = %"+(l+1)+"d", i, j, i*j));
+			}
+			System.out.println();
+		}
+	}
+}
