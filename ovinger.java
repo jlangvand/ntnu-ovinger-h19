@@ -171,7 +171,16 @@ class PrintMersennes {
 
 class LeapYear {
 	public static void main(String[] args) {
-		int test = Integer.parseInt(args[0]);
+		int test;
+		try {
+			Integer.parseInt(args[0]);
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Tast inn et årstall som argument. Eks:\nLeapYear 2011");
+			return;
+		} catch (NumberFormatException e) {
+			System.out.println("Vennligst bruk kun (hel)tall");
+			return;
+		}
 		System.out.println((((test%100==0)&&(test%400==0))||((test%100!=0)&&(test%4==0)))?"Leap year":"Not a leap year");
 	}
 }
