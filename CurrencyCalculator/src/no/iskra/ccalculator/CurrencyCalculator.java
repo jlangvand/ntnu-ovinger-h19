@@ -35,9 +35,9 @@ class CurrencyCalculator {
     rates = getCurrencyRates();
     System.out.println("OK!");
 
-    System.out.println("Iskra Valutakalkulator\n..fordi hvorfor gjøre det enkelt?\n");
-    System.out.println("Tast inn en verdi, og hvilken valuta du vil regne fra og til. Eks:");
-    System.out.println("25 eur nok\nfor å se verdien av 25 euro i kroner.");
+    System.out.println("Iskra Currency Calculator\n");
+    System.out.println("Enter a value and two currency symbols, example:");
+    System.out.println("25 nok eur\nThis will get the value of 25 NOK and display it in EUR.");
 
     while (!exit) {
       displayCommandPrompt();
@@ -48,7 +48,7 @@ class CurrencyCalculator {
 
   static void waitForInput() {
     System.out.println();
-    System.out.println("Trykk enter for å gå tilbake...");
+    System.out.println("Press Enter to continue...");
     try {
       System.in.read();
     } catch(Exception e) {
@@ -60,7 +60,7 @@ class CurrencyCalculator {
     // System.out.println("Skriv 'list' for å se hvilke valutaer som kan brukes.");
     String[] command = getStringFromUser().toUpperCase().split(" ");
     if (command.length < 1) {
-      System.out.println("Ingen kommando gjenkjent");
+      System.out.println("No command recognised");
     } else if (command[0] == "list") {
       listCurrencies();
       return;
@@ -85,16 +85,8 @@ class CurrencyCalculator {
   }
 
   static void listCurrencies() {
-    System.out.println("Tilgjengelige valutakurser:");
+    System.out.println("Avaliable currencies:");
     rates.getJSONObject("rates").keySet().forEach(System.out::println);
-  }
-
-  static void displayAllCurrencies() {
-    System.out.println(String.format("Viser verdier i %s", rates.getString("base")));
-    System.out.println(String.format("Sist oppdatert: %s", rates.getString("date")));
-    System.out.println();
-    System.out.println(String.format("SEK: %.2f %s", sek.getRate(), rates.getString("base")));
-    System.out.println(String.format("USD: %.2f %s", usd.getRate(), rates.getString("base")));
   }
 
   static int getIntFromUser() {
@@ -115,7 +107,8 @@ class CurrencyCalculator {
     try {
       retVal = input.nextLine();
     } catch (InputMismatchException e) {
-      System.out.println("Prøvde du deg på noe stygt? Fikk ikke til å behandle teksten..");
+      System.out.println("Something went wrong. Here's the details:");
+      e.printStackTrace();
       input.next();
     } catch(Exception e) {
       e.printStackTrace();
