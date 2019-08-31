@@ -1,10 +1,12 @@
 package no.iskra.ccalculator;
 
 import no.iskra.ccalculator.Currency;
+import no.iskra.ccalculator.exchangeApiException;
 import java.util.Scanner;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.io.DataOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -33,7 +35,13 @@ class CurrencyCalculator {
     exit = false;
 
     System.out.print("Fetching currency rates... ");
-    rates = getCurrencyRates();
+    try {
+      rates = getCurrencyRates();
+    } catch(exchangeApiException e) {
+      System.out.println(e);
+      System.out.println("Exiting");
+      return;
+    }
     System.out.println("OK!");
 
     System.out.println("Iskra Currency Calculator\n");
@@ -117,7 +125,7 @@ class CurrencyCalculator {
     return retVal;
   }
 
-  static JSONObject getCurrencyRates() {
+  static JSONObject getCurrencyRates() throws exchangeApiException {
     JSONObject obj;
 
     try {
@@ -139,7 +147,9 @@ class CurrencyCalculator {
 
       lastUpdated = obj.getString("date");
     } catch (NullPointerException e) {
-      System.out.println("Could not fetch currency rates. Sorry.");
+      throw new exchangeApiException("API error", e);
+    } catch (UnknownHostException e) {
+      throw new exchangeApiException("Connection to API failed, missing network connection?", e);
     }
     catch(Exception e) {
       e.printStackTrace();
