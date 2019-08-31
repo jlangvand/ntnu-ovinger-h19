@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.util.InputMismatchException;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 
@@ -41,10 +42,17 @@ class CurrencyCalculator {
 
     exit = false;
 
+    System.out.println("Iskra Valutakalkulator\n..fordi hvorfor gjøre det enkelt?\n");
+    System.out.println("Tast inn en verdi, og hvilken valuta du vil regne fra og til. Eks:");
+    System.out.println("25 eur nok\nfor å se verdien av 25 euro i kroner.");
+
     while (!exit) {
-      rateMenu();
-      if (!exit) waitForInput();
+    //  rateMenu();
+      displayCommandPrompt();
+  //    if (!exit) waitForInput();
     }
+
+
 
     System.out.println();
   }
@@ -98,27 +106,36 @@ class CurrencyCalculator {
   }
 
   static void displayCommandPrompt() {
-    System.out.println("Iskra Valutakalkulator\n..fordi hvorfor gjøre det enkelt?\n");
-    System.out.println("Tast inn en verdi, og hvilken valuta du vil regne fra og til. Eks:");
-    System.out.println("25 eur nok\nfor å se verdien av 25 euro i kroner.");
     // System.out.println("Skriv 'list' for å se hvilke valutaer som kan brukes.");
-    String[] command = getStringFromUser().split(" ");
+    String[] command = getStringFromUser().toUpperCase().split(" ");
     if (command.length < 1) {
       System.out.println("Ingen kommando gjenkjent");
     } else if (command[0] == "list") {
       listCurrencies();
       return;
+    } else if (command[0] == "exit" || command[0] == "q" || command[0] == "quit") {
+
     } else if (command.length == 3) {
-      double val = Double.parseDouble(command[0]);
-      String fromCurrency = command[1];
-      String toCurrency = command[2];
-      double val2 = val*rates.getDouble(toCurrency)/rates.getDouble(fromCurrency);
-      System.out.println(String.format("%.2f %s = %2f %s", val, fromCurrency, val2, toCurrency));
+      try {
+        double val = Double.parseDouble(command[0]);
+        String fromCurrency = command[1];
+        String toCurrency = command.length == 4 ? command[3] : command[2];
+        double val2 = val*rates.getJSONObject("rates").getDouble(toCurrency)/
+          rates.getJSONObject("rates").getDouble(fromCurrency);
+        System.out.println(String.format("%.2f %s = %2f %s", val, fromCurrency, val2, toCurrency));
+      } catch(JSONException e) {
+        System.out.println("Kommando ikke gjenkjent eller ugyldig valuta");
+      } catch (NumberFormatException e) {
+        System.out.println("Kommandoen ble formulert feil. Prøv på nytt.");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 
   static void listCurrencies() {
-
+    System.out.println("Tilgjengelige valutakurser:");
+    rates.getJSONObject("rates").keySet().forEach(System.out::println);
   }
 
   static void displayAllCurrencies() {
