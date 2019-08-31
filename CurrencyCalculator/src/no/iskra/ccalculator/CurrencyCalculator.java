@@ -13,8 +13,6 @@ import java.util.InputMismatchException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.simple.parser.ParseException;
-import org.json.simple.parser.JSONParser;
 
 class CurrencyCalculator {
   static Currency nok;
@@ -29,32 +27,23 @@ class CurrencyCalculator {
   static String fiatCurrency;
 
   public static void main(String[] args) {
-    nok = new Currency("Norske kroner", "NOK", 1);
-    usd = new Currency("Amerikanske dollar", "USD", 7.5);
-    sek = new Currency("Svenske kronor", "SEK", 0.93);
     fiatCurrency = "NOK";
-
-    System.out.println("Henter valutakurser...\n");
-
-    rates = getCurrencyRates();
-
     input = new Scanner(System.in);
-
     exit = false;
+
+    System.out.print("Fetching currency rates... ");
+    rates = getCurrencyRates();
+    System.out.println("OK!");
 
     System.out.println("Iskra Valutakalkulator\n..fordi hvorfor gjøre det enkelt?\n");
     System.out.println("Tast inn en verdi, og hvilken valuta du vil regne fra og til. Eks:");
     System.out.println("25 eur nok\nfor å se verdien av 25 euro i kroner.");
 
     while (!exit) {
-    //  rateMenu();
       displayCommandPrompt();
-  //    if (!exit) waitForInput();
     }
 
-
-
-    System.out.println();
+    System.out.println("Bye");
   }
 
   static void waitForInput() {
@@ -67,44 +56,6 @@ class CurrencyCalculator {
     }
   }
 
-  // Usexy metode for å demonstrere bruk av switch
-  static void rateMenu() {
-    printCurrencyMenu();
-    double rate = 0;
-    String symbol = "";
-    boolean print = true;
-    switch (getIntFromUser()) {
-      case 1:
-        rate = nok.getRate();
-        symbol = nok.getSymbol();
-        break;
-      case 2:
-        rate = sek.getRate();
-        symbol = sek.getSymbol();
-        break;
-      case 3:
-        rate = usd.getRate();
-        symbol = usd.getSymbol();
-        break;
-      case 4:
-        displayAllCurrencies();
-        print = false;
-        break;
-      case 0:
-        exit = true;
-        print = false;
-        break;
-      default:
-        break;
-    }
-    System.out.println();
-    if (rate == 0 && print) {
-      System.out.println("Ugyldig menyvalg");
-    } else if (print) {
-      System.out.println(String.format("1.00%s = %.2fNOK", symbol, rate));
-    }
-  }
-
   static void displayCommandPrompt() {
     // System.out.println("Skriv 'list' for å se hvilke valutaer som kan brukes.");
     String[] command = getStringFromUser().toUpperCase().split(" ");
@@ -114,7 +65,7 @@ class CurrencyCalculator {
       listCurrencies();
       return;
     } else if (command[0] == "exit" || command[0] == "q" || command[0] == "quit") {
-
+      exit = true;
     } else if (command.length == 3) {
       try {
         double val = Double.parseDouble(command[0]);
@@ -144,15 +95,6 @@ class CurrencyCalculator {
     System.out.println();
     System.out.println(String.format("SEK: %.2f %s", sek.getRate(), rates.getString("base")));
     System.out.println(String.format("USD: %.2f %s", usd.getRate(), rates.getString("base")));
-  }
-
-  static void printCurrencyMenu() {
-    System.out.println("Velg valuta\n");
-    System.out.println("1 - NOK");
-    System.out.println("2 - SEK");
-    System.out.println("3 - USD");
-    System.out.println("4 - Vis alle");
-    System.out.println("0 - Avslutt");
   }
 
   static int getIntFromUser() {
@@ -222,51 +164,5 @@ class CurrencyCalculator {
       }
       rd.close();
       return result.toString();
-  }
-
-
-  public static String executePost(String targetURL, String urlParameters) {
-    HttpURLConnection connection = null;
-
-    try {
-      //Create connection
-      URL url = new URL(targetURL);
-      connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod("GET");
-      connection.setRequestProperty("Content-Type",
-          "application/x-www-form-urlencoded");
-
-      connection.setRequestProperty("Content-Length",
-          Integer.toString(urlParameters.getBytes().length));
-      connection.setRequestProperty("Content-Language", "en-US");
-
-      connection.setUseCaches(false);
-      connection.setDoOutput(true);
-
-      //Send request
-      DataOutputStream wr = new DataOutputStream (
-          connection.getOutputStream());
-      wr.writeBytes(urlParameters);
-      wr.close();
-
-      //Get Response
-      InputStream is = connection.getInputStream();
-      BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-      StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-      String line;
-      while ((line = rd.readLine()) != null) {
-        response.append(line);
-        response.append('\r');
-      }
-      rd.close();
-      return response.toString();
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-    } finally {
-      if (connection != null) {
-        connection.disconnect();
-      }
-    }
   }
 }
