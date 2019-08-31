@@ -89,10 +89,14 @@ class CurrencyCalculator {
     }
     System.out.println();
     if (rate == 0 && print) {
-      System.out.println("Bare bruk heltall!");
+      System.out.println("Ugyldig menyvalg");
     } else if (print) {
       System.out.println(String.format("1.00%s = %.2fNOK", symbol, rate));
     }
+  }
+
+  static void displayCommandPrompt() {
+
   }
 
   static void displayAllCurrencies() {
@@ -118,7 +122,8 @@ class CurrencyCalculator {
     try {
       retVal = input.nextInt();
     } catch(InputMismatchException e) {
-
+      // Bruker kan ha gjort noe nasty. Tøm buffer og prøv på nytt.
+      input.next();
     }
     return retVal;
   }
@@ -127,7 +132,7 @@ class CurrencyCalculator {
     JSONObject obj;
 
     try {
-      String s = "https://api.exchangeratesapi.io/latest?symbols=USD,SEK&base=NOK";
+      String s = "https://api.exchangeratesapi.io/latest?base=NOK";
       //s = URLEncoder.encode(s, "UTF-8");
       URL url = new URL(s);
       Scanner scan = new Scanner(url.openStream());
