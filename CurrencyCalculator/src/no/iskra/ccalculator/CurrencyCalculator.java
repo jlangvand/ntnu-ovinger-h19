@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.InputMismatchException;
+import java.lang.NullPointerException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +67,7 @@ class CurrencyCalculator {
       return;
     } else if (command[0] == "exit" || command[0] == "q" || command[0] == "quit") {
       exit = true;
-    } else if (command.length == 3) {
+    } else {
       try {
         double val = Double.parseDouble(command[0]);
         String fromCurrency = command[1];
@@ -137,7 +138,10 @@ class CurrencyCalculator {
       usd.setRate(1/obj.getJSONObject("rates").getDouble("USD"));
 
       lastUpdated = obj.getString("date");
-    } catch(Exception e) {
+    } catch (NullPointerException e) {
+      System.out.println("Could not fetch currency rates. Sorry.");
+    }
+    catch(Exception e) {
       e.printStackTrace();
       return new JSONObject();
     }
