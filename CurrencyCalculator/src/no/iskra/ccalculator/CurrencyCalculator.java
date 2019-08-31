@@ -102,7 +102,23 @@ class CurrencyCalculator {
     System.out.println("Tast inn en verdi, og hvilken valuta du vil regne fra og til. Eks:");
     System.out.println("25 eur nok\nfor å se verdien av 25 euro i kroner.");
     // System.out.println("Skriv 'list' for å se hvilke valutaer som kan brukes.");
-    String command = getStringFromUser();
+    String[] command = getStringFromUser().split(" ");
+    if (command.length < 1) {
+      System.out.println("Ingen kommando gjenkjent");
+    } else if (command[0] == "list") {
+      listCurrencies();
+      return;
+    } else if (command.length == 3) {
+      double val = Double.parseDouble(command[0]);
+      String fromCurrency = command[1];
+      String toCurrency = command[2];
+      double val2 = val*rates.getDouble(toCurrency)/rates.getDouble(fromCurrency);
+      System.out.println(String.format("%.2f %s = %2f %s", val, fromCurrency, val2, toCurrency));
+    }
+  }
+
+  static void listCurrencies() {
+
   }
 
   static void displayAllCurrencies() {
