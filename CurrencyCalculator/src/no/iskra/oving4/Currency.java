@@ -1,20 +1,21 @@
-class Currency {
+package no.iskra.oving4;
+
+public class Currency {
   private String name;
   private String symbol;
   private double fiatRate;
   private boolean fiat;
 
-  Currency(String n, String s) {
+  public Currency(String n, String s) {
     name = n;
     fiatRate = 1;
     symbol = s;
     fiat = true;
   }
 
-  Currency(String n, String s, double r) {
-    name = n;
+  public Currency(String n, String s, double r) {
+    this(n, s);
     fiatRate = r;
-    symbol = s;
     fiat = false;
   }
 
@@ -34,5 +35,14 @@ class Currency {
 
   public double getRate() {
     return fiatRate;
+  }
+
+  public double setRate(double newRate) {
+    fiatRate = newRate;
+    return fiatRate;
+  }
+
+  public String getSymbol() {
+    return symbol;
   }
 }
