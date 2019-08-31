@@ -96,7 +96,11 @@ class CurrencyCalculator {
   }
 
   static void displayCommandPrompt() {
-
+    System.out.println("Iskra Valutakalkulator\n..fordi hvorfor gjøre det enkelt?\n");
+    System.out.println("Tast inn en verdi, og hvilken valuta du vil regne fra og til. Eks:");
+    System.out.println("25 eur nok\nfor å se verdien av 25 euro i kroner.");
+    // System.out.println("Skriv 'list' for å se hvilke valutaer som kan brukes.");
+    String command = getStringFromUser();
   }
 
   static void displayAllCurrencies() {
@@ -126,6 +130,19 @@ class CurrencyCalculator {
       input.next();
     }
     return retVal;
+  }
+
+  static String getStringFromUser() {
+    System.out.print("\n> ");
+    String retVal = "";
+    try {
+      retVal = input.nextLine();
+    } catch (InputMismatchException e) {
+      System.out.println("Prøvde du deg på noe stygt? Fikk ikke til å behandle teksten..");
+      input.next();
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
   }
 
   static JSONObject getCurrencyRates() {
