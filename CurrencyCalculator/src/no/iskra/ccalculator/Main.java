@@ -98,8 +98,8 @@ class Main {
     System.out.println(String.format("Viser verdier i %s", rates.getString("base")));
     System.out.println(String.format("Sist oppdatert: %s", rates.getString("date")));
     System.out.println();
-    System.out.println(String.format("SEK: %.2f %s", 1/sek.getRate(), rates.getString("base")));
-    System.out.println(String.format("USD: %.2f %s", 1/usd.getRate(), rates.getString("base")));
+    System.out.println(String.format("SEK: %.2f %s", sek.getRate(), rates.getString("base")));
+    System.out.println(String.format("USD: %.2f %s", usd.getRate(), rates.getString("base")));
   }
 
   static void printCurrencyMenu() {
