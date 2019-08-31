@@ -25,11 +25,13 @@ class CurrencyCalculator {
 
   static boolean exit;
   static String lastUpdated;
+  static String fiatCurrency;
 
   public static void main(String[] args) {
     nok = new Currency("Norske kroner", "NOK", 1);
     usd = new Currency("Amerikanske dollar", "USD", 7.5);
     sek = new Currency("Svenske kronor", "SEK", 0.93);
+    fiatCurrency = "NOK";
 
     System.out.println("Henter valutakurser...\n");
 
@@ -143,13 +145,14 @@ class CurrencyCalculator {
     } catch(Exception e) {
       e.printStackTrace();
     }
+    return retVal;
   }
 
   static JSONObject getCurrencyRates() {
     JSONObject obj;
 
     try {
-      String s = "https://api.exchangeratesapi.io/latest?base=NOK";
+      String s = "https://api.exchangeratesapi.io/latest?base="+fiatCurrency;
       //s = URLEncoder.encode(s, "UTF-8");
       URL url = new URL(s);
       Scanner scan = new Scanner(url.openStream());
