@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 
-class Main {
+class CurrencyCalculator {
   static Currency nok;
   static Currency sek;
   static Currency usd;
