@@ -29,6 +29,9 @@ class Main {
     nok = new Currency("Norske kroner", "NOK", 1);
     usd = new Currency("Amerikanske dollar", "USD", 7.5);
     sek = new Currency("Svenske kronor", "SEK", 0.93);
+
+    System.out.println("Henter valutakurser...\n");
+
     rates = getCurrencyRates();
 
     input = new Scanner(System.in);
